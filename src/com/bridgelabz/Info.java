@@ -1,6 +1,6 @@
 package com.bridgelabz;
 
-public class info {
+public class Info {
 	public String fName; 
 	public String lName;
 	public String address;
@@ -10,7 +10,7 @@ public class info {
 	public String phone;
 	public String email;
 
-	public info(String firstName, String lastName, String address, String city, String state, String zip,
+	public Info(String firstName, String lastName, String address, String city, String state, String zip,
 			String phoneNo, String email) {
 		this.fName = firstName; 
 		this.lName = lastName;
@@ -21,5 +21,6 @@ public class info {
 		this.phone = phoneNo;
 		this.email = email;
 	}
+	
 
 }
