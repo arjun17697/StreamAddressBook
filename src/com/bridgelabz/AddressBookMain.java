@@ -2,6 +2,7 @@ package com.bridgelabz;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -157,6 +158,7 @@ public class AddressBookMain {
 	// Sort by first name
 	private static void SortByFirstName(ArrayList<Info> friends) {
 		Stream<Info> firstNameBasis =  friends.stream().sorted();
+	firstNameBasis.sorted(Comparator.comparing(Info::getfName));
 		System.out.println(firstNameBasis);
 
 	}
