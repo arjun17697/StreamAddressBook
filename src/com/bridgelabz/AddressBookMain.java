@@ -1,9 +1,11 @@
 package com.bridgelabz;
 
 import java.io.*;
-import java.util.*;
 
-import AddressBook.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import com.bridgelabz.info;
 
 public class AddressBookMain {
 	private HashMap<String, ArrayList<info>> deathNote;
@@ -141,7 +143,6 @@ public class AddressBookMain {
 			System.out.println("1. Add a new contact.");
 			System.out.println("2. Edit an existing contact.");
 			System.out.println("3. Delete an existing contact.");
-		
 
 			user_input = stdlin.next();
 
@@ -169,6 +170,10 @@ public class AddressBookMain {
 				break;
 			}
 		}
+
+		// Removing duplicates (Only first entry is preserved,rest removed)
+		List<info> noDuplicates = friends.stream().distinct().collect(Collectors.toList());
+		System.out.println("List with duplicates removed:" + noDuplicates);
 
 	}
 }
