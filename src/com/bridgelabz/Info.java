@@ -22,5 +22,8 @@ public class Info {
 		this.email = email;
 	}
 	
-
+	public String pushInfoToFile() {
+		return fName+":"+lName+":"+address+":"+city+":"+state
+				+":"+zip+":"+phone+":"+email;
+	}
 }

@@ -1,5 +1,9 @@
 package com.bridgelabz;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,6 +18,7 @@ public class AddressBookMain {
 	private static HashMap<String, ArrayList<Info>> deathNote;
 	private static ArrayList<Info> friends;
 	static Scanner stdlin = new Scanner(System.in);
+	private static final String FILE_NAME = "AddressBookRecord.txt";
 
 	public AddressBookMain() {
 		friends = new ArrayList<Info>();
@@ -156,15 +161,58 @@ public class AddressBookMain {
 	}
 
 	// Sort by first name
-	private static void SortByFirstName(ArrayList<Info> friends) {
-		Stream<Info> firstNameBasis =  friends.stream().sorted();
-	firstNameBasis.sorted(Comparator.comparing(Info::getfName));
-		System.out.println(firstNameBasis);
+	/*
+	 * private static void SortByFirstName(ArrayList<Info> friends) { Stream<Info>
+	 * firstNameBasis = friends.stream().sorted();
+	 * firstNameBasis.sorted(Comparator.comparing(Info::getfName));
+	 * System.out.println(firstNameBasis); }
+	 */
+	
+	public static void writeToFile() {
 
+		StringBuffer strBuffer = new StringBuffer();
+		friends.forEach(contacts -> {
+			String contactStr=contacts.pushInfoToFile().concat("\n");
+			strBuffer.append(contactStr);
+		});
+		
+		try {
+			Files.write(Paths.get(FILE_NAME), strBuffer.toString().getBytes());
+			System.out.println("Data written to File");
+		}catch(IOException exception) {
+			exception.printStackTrace();
+		}
 	}
 
+	public static ArrayList<Info> readFile() {
+		
+		ArrayList<Info> fileInfo=new ArrayList<Info>();
+		
+		try {
+			Files.lines(new File(FILE_NAME).toPath())
+			.map(line->line.trim())
+			.forEach(line->{
+			String data = line.toString();
+			String[] record = data.split(":");
+			
+			String fName=record[0];			
+			String lName=record[1];
+			String address=record[2];
+			String city=record[3];
+			String state=record[4];
+			String zip=record[5];
+			String phone=record[6];
+			String email=record[7];
+			
+			fileInfo.add(new Info(fName, lName, address, city,
+					state, zip, phone, email));
+			});
+		}catch(IOException exception) {
+			exception.printStackTrace();
+		}
+		return fileInfo;
+	}
 	public static void main(String[] args) {
-
 		Scanner stdlin = new Scanner(System.in);
 		AddressBookMain makeentry = new AddressBookMain();
 
@@ -197,6 +245,8 @@ public class AddressBookMain {
 			System.out.println("5.Sort by State");
 			System.out.println("6.Count by State");
 			System.out.println("7.Sort by City");
+			System.out.println("9.Write data to File");
+			System.out.println("9.Read data from File");
 
 			user_input = stdlin.next();
 
@@ -236,9 +286,17 @@ public class AddressBookMain {
 				CountbyCity();
 				break;
 
-			case "8":
-				SortByFirstName(friends);
+			/*
+			 * case "8": SortByFirstName(friends); break;
+			 */		
+			case "9":
+				writeToFile();
 				break;
+				
+			case "10":
+				readFile();
+				break;
+				
 
 			default:
 				break;
