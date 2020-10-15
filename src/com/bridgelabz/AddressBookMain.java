@@ -21,6 +21,8 @@ public class AddressBookMain {
 	static Scanner stdlin = new Scanner(System.in);
 	private static final String FILE_NAME = "AddressBookRecord.txt";
 	private static final String FILE_NAME_CSV = "AddressBookRecord.csv";
+	private static final String FILE_NAME_JSON = "AddressBookRecord.JSON";
+	private static final String JSON_FILE_WRITE = "AddressBookRecord.JSON";
 	public AddressBookMain() {
 		friends = new ArrayList<Info>();
 		deathNote = new HashMap<String, ArrayList<Info>>();
@@ -223,9 +225,16 @@ public class AddressBookMain {
 	
 	public static void readFromCSV() {
 		new FileIO().readData(FILE_NAME_CSV); 
-		System.out.println("Write Successful.");
-		
 	}
+	
+	public static void readFromJSON() {
+		new FileIO().readJSONFile(FILE_NAME_JSON); 
+	}
+	
+	public static void jsonWriter() {
+		new FileIO().writeDatatoJson(friends,JSON_FILE_WRITE);
+	}
+	
 	
 	public static void main(String[] args) {
 		Scanner stdlin = new Scanner(System.in);
@@ -261,8 +270,9 @@ public class AddressBookMain {
 			System.out.println("6.Count by State");
 			System.out.println("7.Sort by City");
 			System.out.println("9.Write data to a CSV File");
-			System.out.println("9.Read data from a CSV File");
-
+			System.out.println("10.Read data from a CSV File");
+			System.out.println("11.Read data from a JSON File");
+			System.out.println("12.Write data to a JSON File");
 			user_input = stdlin.next();
 
 			switch (user_input) {
@@ -313,6 +323,13 @@ public class AddressBookMain {
 			case "10":
 				readFile();
 				readFromCSV();
+				break;
+				
+			case "11":
+				readFromJSON();
+				break;
+			case "12":
+				jsonWriter();
 				break;
 				
 
