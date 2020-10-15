@@ -26,4 +26,10 @@ public class Info {
 		return fName+":"+lName+":"+address+":"+city+":"+state
 				+":"+zip+":"+phone+":"+email;
 	}
+
+	public String[] pushDataCSV() {
+		String[] dataStr={fName, lName, address, city, state
+				, zip, phone, email};
+		return dataStr;
+	}
 }

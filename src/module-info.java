@@ -1,2 +1,3 @@
 module AddressBook {
+	requires opencsv;
 }

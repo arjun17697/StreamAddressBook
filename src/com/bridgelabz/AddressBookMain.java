@@ -1,12 +1,11 @@
 package com.bridgelabz;
 
-import java.io.File;
+import java.io.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -14,12 +13,14 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+
 public class AddressBookMain {
 	private static HashMap<String, ArrayList<Info>> deathNote;
 	private static ArrayList<Info> friends;
 	static Scanner stdlin = new Scanner(System.in);
 	private static final String FILE_NAME = "AddressBookRecord.txt";
-
+	private static final String FILE_NAME_CSV = "AddressBookRecord.csv";
 	public AddressBookMain() {
 		friends = new ArrayList<Info>();
 		deathNote = new HashMap<String, ArrayList<Info>>();
@@ -198,6 +199,7 @@ public class AddressBookMain {
 			String fName=record[0];			
 			String lName=record[1];
 			String address=record[2];
+			
 			String city=record[3];
 			String state=record[4];
 			String zip=record[5];
@@ -212,6 +214,19 @@ public class AddressBookMain {
 		}
 		return fileInfo;
 	}
+	
+
+	public static void writeToCSV() {
+		new FileIO().writeData(FILE_NAME_CSV); 
+			System.out.println("Write Successful.");
+	}
+	
+	public static void readFromCSV() {
+		new FileIO().readData(FILE_NAME_CSV); 
+		System.out.println("Write Successful.");
+		
+	}
+	
 	public static void main(String[] args) {
 		Scanner stdlin = new Scanner(System.in);
 		AddressBookMain makeentry = new AddressBookMain();
@@ -245,8 +260,8 @@ public class AddressBookMain {
 			System.out.println("5.Sort by State");
 			System.out.println("6.Count by State");
 			System.out.println("7.Sort by City");
-			System.out.println("9.Write data to File");
-			System.out.println("9.Read data from File");
+			System.out.println("9.Write data to a CSV File");
+			System.out.println("9.Read data from a CSV File");
 
 			user_input = stdlin.next();
 
@@ -291,10 +306,13 @@ public class AddressBookMain {
 			 */		
 			case "9":
 				writeToFile();
+				writeToCSV();
+				
 				break;
 				
 			case "10":
 				readFile();
+				readFromCSV();
 				break;
 				
 
