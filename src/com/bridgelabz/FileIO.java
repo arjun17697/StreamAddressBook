@@ -14,12 +14,11 @@ import java.util.ArrayList;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
-
 public class FileIO {
+	// Write data to CSV File
+	public static void writeData(String filePath, ArrayList<Info> friends) {
 
-	public static void writeData(String filePath) {
-		
-		ArrayList<Info> friends = null;
+		// ArrayList<Info> friends = null;
 		File file = new File(filePath);
 		try {
 			FileWriter outputfile = new FileWriter(file);
@@ -39,72 +38,69 @@ public class FileIO {
 			e.printStackTrace();
 		}
 	}
-	public static void readData(String file) 
-	{ 
-	    try { 
-	  
-	        FileReader filereader = new FileReader(file); 
-	        CSVReader csvReader = new CSVReader(filereader); 
-	        String[] nextRecord; 
-	        while ((nextRecord = csvReader.readNext()) != null) { 
-	            for (String cell : nextRecord) { 
-	                System.out.print(cell + "\t"); 
-	            } 
-	            System.out.println(); 
-	        } 
-	    } 
-	    catch (Exception e) { 
-	        e.printStackTrace(); 
-	    } 
-	} 
-/*	package reading_file;
 
-	import java.io.*;
-	import java.util.ArrayList;
-
-;*/
-
-	public static void readJSONFile(String fileNameJson){
-		ArrayList<JSONObject> json=new ArrayList<JSONObject>();
-	    JSONObject obj;
-
-	    // This will reference one line at a time
-	    String line = null;
-
-	    try {
-	        // FileReader reads text files in the default encoding.
-	        FileReader fileReader = new FileReader(fileNameJson);
-
-	        // Always wrap FileReader in BufferedReader.
-	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-	        while((line = bufferedReader.readLine()) != null) {
-	            obj = (JSONObject) new JSONParser().parse(line);
-	            json.add(obj);
-	            System.out.println((String)obj.get("fName")+":"+(String)obj.get("lName")+":"+(String)obj.get("address")+":"+(String)obj.get("city")+":"+
-	            					(String)obj.get("state")+":"+(String)obj.get("zip")+":"+(String)obj.get("phone")+":"+(String)obj.get("email"));
-	        }
-	        
-	        bufferedReader.close();         
-	    }
-	    catch(Exception ex) {
-	    	 ex.printStackTrace(); 
-	    }
-	   
-	}
-	
-public void writeDatatoJson(ArrayList<Info> friends, String JSON_FILE_WRITE) {
-		
+//Read data from CSV File
+	public static void readData(String file) {
 		try {
+
+			FileReader filereader = new FileReader(file);
+			CSVReader csvReader = new CSVReader(filereader);
+			String[] nextRecord;
+			while ((nextRecord = csvReader.readNext()) != null) {
+				for (String cell : nextRecord) {
+					System.out.print(cell + "\t");
+				}
+				System.out.println();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+//Read data from JSON file
+	public static void readJSONFile(String fileNameJson) {
+		ArrayList<JSONObject> json = new ArrayList<JSONObject>();
+		JSONObject obj;
+
+		// This will reference one line at a time
+		String line = null;
+
+		try {
+			// FileReader reads text files in the default encoding.
+			FileReader fileReader = new FileReader(fileNameJson);
+
+			// Always wrap FileReader in BufferedReader.
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+			while ((line = bufferedReader.readLine()) != null) {
+				obj = (JSONObject) new JSONParser().parse(line);
+				json.add(obj);
+				System.out.println((String) obj.get("fName") + ":" + (String) obj.get("lName") + ":"
+						+ (String) obj.get("address") + ":" + (String) obj.get("city") + ":" + (String) obj.get("state")
+						+ ":" + (String) obj.get("zip") + ":" + (String) obj.get("phone") + ":"
+						+ (String) obj.get("email"));
+			}
+
+			bufferedReader.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+//Write data to JSON file
+	public void writeDatatoJson(ArrayList<Info> friends, String JSON_FILE_WRITE) {
+
+		try {
+			Gson gson = new Gson();
 			Writer writer = Files.newBufferedWriter(Paths.get(JSON_FILE_WRITE));
-			new Gson().toJson(friends,writer);
+			new gson().toJson(friends, writer);
 			writer.close();
-			
+
 		} catch (IOException exception) {
 			exception.printStackTrace();
-			
-		
-}
-}
-}
 
+		}
+	}
+}

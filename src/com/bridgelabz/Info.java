@@ -32,4 +32,10 @@ public class Info {
 				, zip, phone, email};
 		return dataStr;
 	}
+	
+	@Override
+	public String toString() {
+		System.out.println();
+		return "Created entry for "+fName+" "+lName;
+	}
 }
