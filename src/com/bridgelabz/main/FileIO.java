@@ -1,4 +1,4 @@
-package com.bridgelabz;
+package com.bridgelabz.main;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import org.json.simple.JSONArray; 
+import org.json.simple.JSONObject; 
 
 public class FileIO {
 	// Write data to CSV File

@@ -1,4 +1,4 @@
-package com.bridgelabz;
+package com.bridgelabz.main;
 
 public class Info {
 	public String fName; 
