@@ -11,6 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookJDBCServices{
+	private PreparedStatement contactPreparedStatement;
+	private static AddressBookJDBCServices addressBookJDBCServices;
+
+	public AddressBookJDBCServices() {
+	}
+
+	public static AddressBookJDBCServices getInstance() {
+		if (addressBookJDBCServices == null)
+			addressBookJDBCServices = new AddressBookJDBCServices();
+		return addressBookJDBCServices;
+	}
+
+	private Connection getConnection() throws SQLException {
+		String jdbcURL = "jdbc:mysql://localhost:3306/address_book_service?useSSL=false";
+		String userName = "root";
+		String password = "arjun321";
+		return DriverManager.getConnection(jdbcURL, userName, password);
+	}
+
 
 	public List<Contact> readData() {
 		String sql = String.format("select * from address_book");
@@ -32,11 +51,21 @@ public class AddressBookJDBCServices{
 		}
 		return contactList;
 	}
+	
+	public List<Contact> getContacts(String firstName) {
+		String sql = String.format("select * from address_book where first_name = '%s'", firstName);
+		return getContactList(sql);
+	}
 
-	private Connection getConnection() throws SQLException {
-		String jdbcURL = "jdbc:mysql://localhost:3306/address_book_service?useSSL=false";
-		String userName = "root";
-		String password = "arjun321";
-		return DriverManager.getConnection(jdbcURL, userName, password);
+	public int updateContactUsingSQL(String firstName, String column, String columnValue) {
+		String sql = String.format("UPDATE address_book SET %s = '%s'  WHERE first_name = '%s';", column, columnValue,
+				firstName);
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			return preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
