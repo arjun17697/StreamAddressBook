@@ -4,6 +4,7 @@ package com.bridgelabz.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Before;
@@ -35,5 +36,13 @@ public class AddressBookJDBCServiceTest {
 		addressBookService.updateCity("Arjun", "Pune");
 		boolean isSynced = addressBookService.isAddressBookSyncedWithDB("Arjun");
 		assertTrue(isSynced);
+	}
+	
+	@Test
+	public void givenDateRange_WhenRetrievedContactInfo_ShouldMatchCount() throws AddressBookDBException{
+		LocalDate startDate = LocalDate.of(2019, 01, 01);
+		LocalDate endDate= LocalDate.now();
+		List<Contact> contactList=addressBookService.getContactsForDateRange(startDate,endDate);
+		
 	}
 }

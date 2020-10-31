@@ -3,12 +3,16 @@ package com.bridgelabz.main;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bridgelabz.main.AddressBookService.IOService;
 
 public class AddressBookJDBCServices{
 	private PreparedStatement contactPreparedStatement;
@@ -56,6 +60,12 @@ public class AddressBookJDBCServices{
 		String sql = String.format("select * from address_book where first_name = '%s'", firstName);
 		return getContactList(sql);
 	}
+	
+	public List<Contact>getContactForDateRange(LocalDate startDate, LocalDate endDate){
+		String sql=String.format("SELECT * FROM address_book Where date_added between '%s' and '%s';",
+				Date.valueOf(startDate),Date.valueOf(endDate));
+		return getContactList(sql);
+	}
 
 	public int updateContactUsingSQL(String firstName, String column, String columnValue) {
 		String sql = String.format("UPDATE address_book SET %s = '%s'  WHERE first_name = '%s';", column, columnValue,
@@ -68,4 +78,6 @@ public class AddressBookJDBCServices{
 		}
 		return 0;
 	}
+	
+	
 }
