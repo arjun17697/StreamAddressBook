@@ -56,4 +56,12 @@ public class AddressBookService {
 		return contactList.stream().filter(e -> e.getFirstName().equals(name)).findFirst().orElse(null);
 	}
 
+	public List<Contact> getContactsByCity(String cityName) {
+		return addressBookJDBCServices.getContactsByField("city", cityName);
+	}
+
+	public List<Contact> getContactsByState(String stateName) {
+		return addressBookJDBCServices.getContactsByField("state", stateName);
+	}
+
 }
