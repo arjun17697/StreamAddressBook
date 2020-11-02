@@ -5,15 +5,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.bridgelabz.main.AddressBookDBException;
-import com.bridgelabz.main.AddressBookJDBCServices;
-import com.bridgelabz.main.AddressBookService;
-import com.bridgelabz.main.Contact;
+import com.bridgelabz.main.exception.AddressBookDBException;
+import com.bridgelabz.main.services.AddressBookJDBCServices;
+import com.bridgelabz.main.services.AddressBookService;
+import com.bridgelabz.main.services.Contact;
+import com.bridgelabz.main.services.AddressBookService.IOService;
 
 public class AddressBookJDBCServiceTest {
 	AddressBookJDBCServices addressBookJDBCServices;
@@ -64,5 +66,19 @@ public class AddressBookJDBCServiceTest {
 				"Kerala", "682011", "8725120000", "trisha@person.com");
 		boolean isSynced = addressBookService.isAddressBookSyncedWithDB("Trisha");
 		assertTrue(isSynced);
+	}
+	
+	@Test
+	public void givenMultipeContacts_WhenAddedToDBWithMultiThreads_ShouldSyncWithDB() throws AddressBookDBException {
+		List<Contact> contacts = new ArrayList<>() {
+			{
+				add(new Contact("Trisha", "Krishnan", "68/1 Srishti Complex", "Ernakulam", "Kerala", "682011",
+						"8725120000", "trisha@person.com"));
+				add(new Contact("Faizal", "Ahmed", "68/1 Beauty Complex", "Aluva", "Kerala", "683022", "8725120022",
+						"faizal@person.com"));
+			}
+		};
+		addressBookService.addNewMultipleContacts(contacts);
+		assertEquals(7, addressBookService.readContactData(IOService.DB_IO).size());
 	}
 }
