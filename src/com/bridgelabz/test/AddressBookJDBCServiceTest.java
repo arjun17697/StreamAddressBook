@@ -69,7 +69,7 @@ public class AddressBookJDBCServiceTest {
 
 	@Test
 	public void givenMultipeContacts_WhenAddedToDBWithMultiThreads_ShouldSyncWithDB() throws AddressBookDBException {
-		List<Contact> contacts = new ArrayList<>() {
+		List<Contact> contacts = new ArrayList<Contact>() {
 			{
 				add(new Contact("Trisha", "Krishnan", "68/1 Srishti Complex", "Ernakulam", "Kerala", "682011",
 						"8725120000", "trisha@person.com"));
