@@ -96,5 +96,14 @@ public class AddressBookService {
 			} catch (InterruptedException e) {
 			}
 	}
+	
 
+	public void removeContact(String firstName) {
+		Contact contact = contactList.stream().filter(e -> e.getFirstName().equals(firstName)).findFirst().orElse(null);
+		contactList.remove(contact);
+	}
+	public Contact getContactByName(String name) {
+		return contactList.stream().filter(e -> e.getFirstName().equals(name)).findFirst().orElse(null);
+	}
+	
 }

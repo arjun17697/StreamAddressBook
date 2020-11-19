@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.bridgelabz.main.exception.AddressBookDBException;
+import com.bridgelabz.main.services.AddressBookService;
 import com.bridgelabz.main.services.Contact;
 import com.google.gson.Gson;
 
@@ -55,6 +57,40 @@ public class AddressBookJsonServerTest {
 			Response response = addContactToJSONServer(contact);
 			assertEquals(201, response.statusCode());
 		}
+	}
+	
+	private Response updateContactData(Contact contact) {
+		String contactJson = new Gson().toJson(contact);
+		RequestSpecification requestSpecification = RestAssured.given();
+		requestSpecification.header("Content-Type", "application/json");
+		requestSpecification.body(contactJson);
+		return requestSpecification.put("/addressbook/" + contact.getId());
+	}
+
+	@Test
+	public void givenNewCityForContact_WhenUpdated_ShouldMatchStatusCode() throws AddressBookDBException {
+		AddressBookService addressBookServices = new AddressBookService(getAddressBook());
+		addressBookServices.updateCity("Aditi", "Mumbai");
+		Contact contact = addressBookServices.getContactByName("Aditi");
+		Response response = updateContactData(contact);
+		assertEquals(200, response.getStatusCode());
+	}
+
+	private Response deleteContact(Contact contact) {
+		String contactJson = new Gson().toJson(contact);
+		RequestSpecification requestSpecification = RestAssured.given();
+		requestSpecification.header("Content-Type", "application/json");
+		requestSpecification.body(contactJson);
+		return requestSpecification.delete("/addressbook/" + contact.getId());
+	}
+
+	@Test
+	public void givenEmployeeId_WhenDelelted_ShouldMatchStatusCodeAndCount() {
+		AddressBookService addressBookServices = new AddressBookService(getAddressBook());
+		Contact contact = addressBookServices.getContactByName("Dev");
+		addressBookServices.removeContact("Dev");
+		Response response = deleteContact(contact);
+		assertEquals(200, response.getStatusCode());
 	}
 
 }
