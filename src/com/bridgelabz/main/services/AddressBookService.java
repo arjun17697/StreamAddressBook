@@ -67,14 +67,13 @@ public class AddressBookService {
 	public List<Contact> getContactsByState(String stateName) {
 		return addressBookJDBCServices.getContactsByField("state", stateName);
 	}
-	
 
 	public Contact addNewContact(String date, String firstName, String lastName, String address, String city,
 			String state, String zip, String phoneNo, String email) throws AddressBookDBException {
 		return addressBookJDBCServices.insertNewContactToDB(date, firstName, lastName, address, city, state, zip,
 				phoneNo, email);
 	}
-	
+
 	public void addNewMultipleContacts(List<Contact> contacts) throws AddressBookDBException {
 		Map<Integer, Boolean> status = new HashMap<>();
 		contacts.forEach(contact -> {
@@ -97,6 +96,5 @@ public class AddressBookService {
 			} catch (InterruptedException e) {
 			}
 	}
-
 
 }

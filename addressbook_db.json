@@ -1,0 +1,63 @@
+{
+  "addressbook": [
+    {
+      "id": 1,
+      "date_added": "2014-01-01",
+      "firstName": "Akram",
+      "lastName": "Shaheed",
+      "address": "Berhampore",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "zip": "742100",
+      "phoneNo": "9999900000",
+      "email": "akram@person.com"
+    },
+    {
+      "id": 2,
+      "date_added": "2016-01-01",
+      "firstName": "Aditi",
+      "lastName": "Sharma",
+      "address": "4/11 Vati Nagar",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "zip": "625058",
+      "phoneNo": "8888888888",
+      "email": "aditi@person.com"
+    },
+    {
+      "id": 3,
+      "date_added": "2020-01-01",
+      "firstName": "John",
+      "lastName": "Smith",
+      "address": "8/22 Kalyani",
+      "city": "Kalyani",
+      "state": "West Bengal",
+      "zip": "729558",
+      "phoneNo": "8123400000",
+      "email": "john@person.com"
+    },
+    {
+      "id": 4,
+      "date_added": "2020-01-01",
+      "firstName": "Krishna",
+      "lastName": "Pauly",
+      "address": "8/11 Podula Road",
+      "city": "Aluva",
+      "state": "Kerala",
+      "zip": "826123",
+      "phoneNo": "7894652222",
+      "email": "krishna@person.com"
+    },
+    {
+      "id": 5,
+      "date_added": "2018-08-08",
+      "firstName": "Trisha",
+      "lastName": "Krishnan",
+      "address": "68/1 Srishti Complex",
+      "city": "Ernakulam",
+      "state": "Kerala",
+      "zip": "682011",
+      "phoneNo": "8725120000",
+      "email": "trisha@person.com"
+    }
+]}
